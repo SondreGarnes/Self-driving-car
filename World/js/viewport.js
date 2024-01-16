@@ -4,9 +4,24 @@ class Viewport{
         this.ctx = canvas.getContext("2d");
 
         this.zoom = 1;
+        this.offset = new Point(0, 0);
+
+        this.drag= {
+            start: new Point(0, 0),
+            end: new Point(0, 0),
+            offset: new Point(0, 0),
+            active: false
+        }
 
         this.#addEventListeners();
         
+    }
+
+    getMouse(evt) {
+        return new Point(
+            evt.offsetX * this.zoom,
+            evt.offsetY * this.zoom
+        );
     }
 
     #addEventListeners() {
@@ -15,7 +30,9 @@ class Viewport{
 
     #handleMouseWheel(evt) {
         const dir = Math.sign(evt.deltaY);
-        this.zoom += dir;
-        console.log(evt.zoom)
+        const step = 0.1;
+        this.zoom += dir * step;
+        this.zoom = Math.max(1,Math.min(5, this.zoom));
+        console.log(this.zoom)
     }
 }
