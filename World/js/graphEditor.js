@@ -16,7 +16,6 @@ class GraphEditor {
 
     #addEventListeners() {
         this.canvas.addEventListener("mousedown", this.#handleMouseDown.bind(this));
-            
         this.canvas.addEventListener("mousemove", this.#handleMouseMove.bind(this));
         this.canvas.addEventListener("contextmenu", (evt) => evt.preventDefault());
         this.canvas.addEventListener("mouseup", () => this.dragging=false);
@@ -68,6 +67,12 @@ class GraphEditor {
             this.selected = null;
         }
         
+    }
+
+    dispose() {
+        this.graph.dispose();
+        this.selected=null;
+        this.hovered=null;
     }
 
     display() {
